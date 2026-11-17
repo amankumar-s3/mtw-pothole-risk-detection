@@ -1,0 +1,18 @@
+# Real detectors (YOLOv8 + ByteTrack). Needed for training, prelabel, evaluate_detection and real-video runs.
+# NOT needed for the tests or the mock mode.
+#
+# Tested install order (opencv-python-headless from requirements.txt stays the only OpenCV):
+#   pip install --no-deps ultralytics==8.4.212
+#   pip install -r requirements-detect.txt
+# `pip check` then reports that ultralytics wants `opencv-python` (we use the headless build) and
+# `ultralytics-platform` (not installed; not needed for the features used here). Training, predict and ByteTrack
+# tracking were run with exactly this set.
+torch==2.15.0
+torchvision==0.29.2
+lap==0.5.14                 # required by Ultralytics' ByteTrack; NOT pulled in by --no-deps
+psutil==7.2.2
+requests==2.34.2
+polars==2.1.0
+ultralytics-thop==2.2.5
+# torch note: 2.15.0 is the default PyPI Linux wheel (CUDA 13 build); it was run on CPU only here. For other
+# hardware install torch/torchvision as described on pytorch.org and keep ultralytics at 8.4.212.

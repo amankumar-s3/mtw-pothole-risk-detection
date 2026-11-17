@@ -1,0 +1,7 @@
+# Written by scripts/make_splits.py. Colab: the notebook rewrites `path`.
+path: data/processed/pothole
+train: train/images
+val: val/images
+test: test_a/images
+names:
+  0: pothole

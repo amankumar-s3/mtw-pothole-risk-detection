@@ -1,0 +1,32 @@
+{
+  "root": "data/raw/21431547/RDD2022/Czech",
+  "format": "voc",
+  "n_images": 3538,
+  "n_annotation_files": 2829,
+  "n_boxes": 1745,
+  "images_with_annotation": 2829,
+  "images_without_annotation": 709,
+  "annotations_without_image": 0,
+  "duplicate_image_stems": 0,
+  "corrupt_images": [],
+  "class_histogram": {
+    "D00": 988,
+    "D10": 399,
+    "D40": 197,
+    "D20": 161
+  },
+  "rel_width_percentiles": {
+    "p5": 0.04333,
+    "p25": 0.075,
+    "p50": 0.11833,
+    "p75": 0.195,
+    "p95": 0.388
+  },
+  "rel_height_percentiles": {
+    "p5": 0.03,
+    "p25": 0.05167,
+    "p50": 0.1,
+    "p75": 0.14667,
+    "p95": 0.19833
+  }
+}

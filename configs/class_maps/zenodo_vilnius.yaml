@@ -1,0 +1,7 @@
+# TO VERIFY: "Road Surface Irregularities" (Zenodo, VILNIUS TECH) is described with 3 classes
+# (potholes, manholes, speed-reducing bumps). The class id order is NOT confirmed. Check the dataset's
+# own class file and the histogram, then set the id of "pothole" below. Manholes and bumps are dropped.
+source: zenodo_vilnius
+format: yolo
+class_id_map:
+  0: 0              # TO VERIFY: assumed that id 0 is the pothole class

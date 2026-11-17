@@ -1,0 +1,11 @@
+# TO VERIFY: the Mendeley record provides both Pascal VOC XML and YOLO TXT. We read the VOC XML only
+# (never both). The exact XML class label text is not confirmed: the synonyms below are guesses.
+# Run scripts/verify_datasets.py --format voc and edit this list to match the histogram.
+source: dib
+format: voc
+case_insensitive: true
+class_map:
+  pothole: 0
+  potholes: 0
+  water-filled pothole: 0
+  dry pothole: 0

@@ -1,0 +1,95 @@
+# Pipeline configuration. Every threshold used by src/ptr lives here or in risk.yaml.
+# Values are starting points, NOT calibrated on real footage.
+camera_mode: moving          # moving (primary, dashcam) | static (kept as an option)
+
+video:
+  fallback_fps: 30.0         # used only when the file reports fps <= 0
+  timestamp_mode: index      # index: t = frame_index / fps | msec: use container timestamps
+  frame_stride: 1            # process every n-th frame; all "frames" below are processed frames
+  max_frames: null           # null = whole video
+  resize_width: null         # null = keep native size
+  writer_fourcc: mp4v
+
+detectors:
+  pothole:
+    weights: models/pothole/best.pt
+    conf: 0.35
+    iou: 0.7
+    imgsz: 640
+    max_det: 50
+    min_box_px: 8
+    device: null             # null = Ultralytics default
+  mtw:
+    weights: yolov8s.pt      # COCO-pretrained; downloaded by Ultralytics if absent
+    coco_class_id: 3         # COCO "motorcycle"
+    conf: 0.25
+    iou: 0.7
+    imgsz: 640
+    min_box_px: 16
+    device: null
+    tracker_config: configs/bytetrack_custom.yaml
+
+trajectory:
+  ema_alpha: 0.5             # EMA weight of the newest box (1.0 = no smoothing)
+  min_history_frames: 5      # no motion features before this many frames
+  max_missed_frames: 15      # prune a track after this many frames without a detection
+  min_reliable_seconds: 1.0  # tracks shorter than this are flagged unreliable
+  velocity_frames: 3         # finite-difference span for velocity/heading
+
+registry:                    # short-term pothole stabiliser (not a map)
+  iou_match: 0.3
+  min_hits: 3                # confirm after this many matched frames
+  max_age_seconds: 0.5       # drop after this long without a match (moving mode)
+  tentative_max_age_seconds: 0.2
+  median_window: 5           # running median over the last n matched boxes
+  velocity_alpha: 0.5        # EMA for centre-velocity prediction
+  merge_iou: 0.6             # two registry entries overlapping more than this are merged
+  static_persistent: true    # static mode only: never drop confirmed potholes
+
+ego_motion:
+  enabled: true
+  roi: [0.0, 0.30, 1.0, 0.70] # x0, y0, x1, y1 as fractions of the frame (mid band: skips sky and the fast near-field flow)
+  max_corners: 200
+  quality_level: 0.01
+  min_distance: 8
+  block_size: 7
+  box_margin_px: 10          # detected boxes are masked out, grown by this margin
+  lk_win: 21
+  lk_levels: 3
+  ransac_thresh_px: 2.5
+  min_points: 12
+  min_inlier_ratio: 0.5      # below this the transform falls back to identity (valid=false)
+  use_scale: false           # false: keep only translation + rotation (forward-motion expansion is depth dependent)
+  max_span_seconds: 3.0      # transforms are composed inside windows only, never over the whole video
+
+features:
+  window_seconds: 0.8        # sliding window for swerve / TTR / decel
+  min_samples: 6             # fewer samples in the window => insufficient_history
+  max_abs_dy: 3.0            # a pair is "in range" only while |dy| <= this (MTW box heights)
+  max_dx: 6.0                # ... and dx <= this (MTW box widths)
+  pothole_memory_seconds: 0.7   # keep using the last-known pothole box this long after it disappears
+  pair_expire_seconds: 1.0   # drop pair state after this long out of range
+  min_slope_eps: 1.0e-6      # |dy| slope must be below -eps to count as "closing"
+  standstill_speed: 0.05     # MTW-heights per second below which the MTW counts as standing still
+  ego_compensation: true     # use egomotion transforms inside the window (needs ego_motion.enabled)
+  post_encounter_seconds: 0.5   # rows stop this long after the dy zero crossing (the pair is then closed)
+  perspective:               # OPTIONAL depth-matching of the pothole x before measuring the lateral offset
+    enabled: false           # off = Rev 2 definition. On needs a horizon estimate (flat-road assumption)
+    horizon_row_frac: 0.42   # only used when enabled; must be set per camera mount
+    principal_x_frac: 0.5
+    max_depth_ratio: 3.0     # guard against a badly placed horizon (see docs/methodology.md)
+  size:
+    max_abs_dy: 0.5          # use the width ratio only when |dy| is at most this
+    ratio_small_max: 0.5     # pothole width / MTW width below this => small
+    ratio_large_min: 1.0     # at or above this => large
+    frac_small_max: 0.002    # fallback: pothole box area / frame area below this => small
+    frac_large_min: 0.01     # fallback: at or above this => large
+  registry_size:             # size class shown for a pothole on its own (area fraction of frame)
+    frac_small_max: 0.002
+    frac_large_min: 0.01
+
+output:
+  trail_length: 30
+  font_scale: 0.5
+  draw_ego_indicator: true
+  write_video: true

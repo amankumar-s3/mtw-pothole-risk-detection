@@ -1,0 +1,38 @@
+{
+  "root": "data/raw/21431547/RDD2022/India",
+  "format": "voc",
+  "n_images": 9665,
+  "n_annotation_files": 7706,
+  "n_boxes": 8203,
+  "images_with_annotation": 7706,
+  "images_without_annotation": 1959,
+  "annotations_without_image": 0,
+  "duplicate_image_stems": 0,
+  "corrupt_images": [],
+  "class_histogram": {
+    "D40": 3187,
+    "D20": 2021,
+    "D00": 1555,
+    "D44": 1062,
+    "D01": 179,
+    "D10": 68,
+    "D43": 57,
+    "D11": 45,
+    "D50": 28,
+    "D0w0": 1
+  },
+  "rel_width_percentiles": {
+    "p5": 0.04722,
+    "p25": 0.08889,
+    "p50": 0.15417,
+    "p75": 0.29861,
+    "p95": 0.73458
+  },
+  "rel_height_percentiles": {
+    "p5": 0.03611,
+    "p25": 0.07222,
+    "p50": 0.13056,
+    "p75": 0.21389,
+    "p95": 0.31528
+  }
+}

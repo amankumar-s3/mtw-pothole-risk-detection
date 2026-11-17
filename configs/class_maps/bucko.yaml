@@ -1,0 +1,6 @@
+# TO VERIFY: the Figshare page says YOLO-format pothole annotations (single class). Confirm the class id
+# in the downloaded label files with scripts/verify_datasets.py --format yolo.
+source: bucko
+format: yolo
+class_id_map:       # source class id -> pothole id 0; everything not listed is dropped
+  0: 0

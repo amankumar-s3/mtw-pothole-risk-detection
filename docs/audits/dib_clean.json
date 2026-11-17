@@ -1,0 +1,30 @@
+{
+  "root": "data/raw/dib_clean",
+  "format": "voc",
+  "n_images": 713,
+  "n_annotation_files": 713,
+  "n_boxes": 1157,
+  "images_with_annotation": 713,
+  "images_without_annotation": 0,
+  "annotations_without_image": 0,
+  "duplicate_image_stems": 0,
+  "corrupt_images": [],
+  "class_histogram": {
+    "pothole": 1156,
+    "o": 1
+  },
+  "rel_width_percentiles": {
+    "p5": 0.09884,
+    "p25": 0.19417,
+    "p50": 0.32058,
+    "p75": 0.53659,
+    "p95": 0.8342
+  },
+  "rel_height_percentiles": {
+    "p5": 0.0534,
+    "p25": 0.12379,
+    "p50": 0.23697,
+    "p75": 0.37717,
+    "p95": 0.6699
+  }
+}

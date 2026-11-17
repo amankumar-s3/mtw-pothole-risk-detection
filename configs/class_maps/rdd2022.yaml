@@ -1,0 +1,8 @@
+# TO VERIFY: class codes are taken from the RDD2022 GitHub page (D00, D10, D20 = cracks, D40 = pothole).
+# Check the class histogram printed by scripts/verify_datasets.py and a visual audit of ~100 D40 boxes
+# before training. Use one folder per country (India, Czech, China_MotorBike) as separate --input roots.
+source: rdd2022
+format: voc
+case_insensitive: true
+class_map:          # source class name -> pothole id 0; everything not listed is dropped
+  D40: 0

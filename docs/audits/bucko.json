@@ -1,0 +1,30 @@
+{
+  "root": "data/raw/bucko",
+  "format": "yolo",
+  "n_images": 2099,
+  "n_annotation_files": 2099,
+  "n_boxes": 3608,
+  "images_with_annotation": 2099,
+  "images_without_annotation": 0,
+  "annotations_without_image": 0,
+  "duplicate_image_stems": 0,
+  "corrupt_images": [],
+  "class_histogram": {
+    "0": 3166,
+    "1": 442
+  },
+  "rel_width_percentiles": {
+    "p5": 0.02187,
+    "p25": 0.03359,
+    "p50": 0.04609,
+    "p75": 0.06328,
+    "p95": 0.10078
+  },
+  "rel_height_percentiles": {
+    "p5": 0.01806,
+    "p25": 0.02639,
+    "p50": 0.03472,
+    "p75": 0.04722,
+    "p95": 0.07361
+  }
+}

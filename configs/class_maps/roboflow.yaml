@@ -1,0 +1,8 @@
+# Editable template for Roboflow Universe exports in YOLO format (one copy per project, record each
+# project URL and licence in docs/data_sources.md). Class ids differ between projects: edit class_id_map
+# after reading the project's data.yaml. Multi-class projects: keep only the pothole id.
+# Roboflow exports often contain augmented duplicates: scripts/clean_dedupe.py clusters them.
+source: roboflow
+format: yolo
+class_id_map:
+  0: 0              # TO VERIFY per project

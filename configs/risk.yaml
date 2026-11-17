@@ -1,0 +1,38 @@
+# Risk scoring configuration.
+# status: initial hypotheses, to be calibrated. Not literature values. Not accident prediction.
+status: "initial hypotheses, to be calibrated"
+normalize_weights: true      # weights are divided by their sum at load time
+
+# Moving (dashcam) block: primary mode. Deceleration weight is 0 because ego speed confounds it.
+moving:
+  weights: {proximity: 0.30, ttr: 0.15, swerve: 0.30, size: 0.15, decel: 0.00}
+  anchors:                   # indicator = linear map, 0 at "zero_at", 1 at "one_at", clipped to [0, 1]
+    proximity: {zero_at: 4.0, one_at: 1.0}    # window-minimum of sqrt(dx^2 + dy^2), MTW widths
+    ttr:       {zero_at: 3.0, one_at: 1.0}    # seconds
+    swerve:    {zero_at: 0.2, one_at: 1.0}    # MTW widths per second
+    decel:     {zero_at: 0.10, one_at: 0.40}  # relative drop of the depth-rate proxy
+  size_scores: {small: 0.3, medium: 0.6, large: 1.0}
+  classes: {low_max: 0.35, high_min: 0.65}     # Low < 0.35 <= Moderate < 0.65 <= High (if gated)
+  high_gate: {p_min: 0.5, s_min: 0.5, b_min: 0.5, z_min: 0.6}
+  persistence:
+    accept_seconds: 0.3      # a higher class must persist this long before it is accepted
+    deescalate_seconds: 1.0  # a lower class must persist this long before the class drops
+    event_close_seconds: 1.0 # an event closes after this long without rows for its pair
+    min_event_frames: 3      # shorter encounters are not reported as events
+
+# Static-camera block (kept as an option; deceleration enabled, as in Blueprint v1).
+static:
+  weights: {proximity: 0.30, ttr: 0.15, swerve: 0.25, size: 0.15, decel: 0.15}
+  anchors:
+    proximity: {zero_at: 4.0, one_at: 1.0}
+    ttr:       {zero_at: 3.0, one_at: 1.0}
+    swerve:    {zero_at: 0.2, one_at: 1.0}
+    decel:     {zero_at: 0.10, one_at: 0.40}
+  size_scores: {small: 0.3, medium: 0.6, large: 1.0}
+  classes: {low_max: 0.35, high_min: 0.65}
+  high_gate: {p_min: 0.5, s_min: 0.5, b_min: 0.5, z_min: 0.6}
+  persistence:
+    accept_seconds: 0.3
+    deescalate_seconds: 1.0
+    event_close_seconds: 1.0
+    min_event_frames: 3

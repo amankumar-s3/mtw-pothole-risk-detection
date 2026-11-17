@@ -1,0 +1,33 @@
+{
+  "root": "data/raw/21431547/RDD2022/China_MotorBike",
+  "format": "voc",
+  "n_images": 2477,
+  "n_annotation_files": 1977,
+  "n_boxes": 4927,
+  "images_with_annotation": 1977,
+  "images_without_annotation": 500,
+  "annotations_without_image": 0,
+  "duplicate_image_stems": 0,
+  "corrupt_images": [],
+  "class_histogram": {
+    "D00": 2678,
+    "D10": 1096,
+    "D20": 641,
+    "Repair": 277,
+    "D40": 235
+  },
+  "rel_width_percentiles": {
+    "p5": 0.03184,
+    "p25": 0.08789,
+    "p50": 0.19727,
+    "p75": 0.40234,
+    "p95": 0.99805
+  },
+  "rel_height_percentiles": {
+    "p5": 0.03516,
+    "p25": 0.0918,
+    "p50": 0.20898,
+    "p75": 0.51758,
+    "p95": 0.97266
+  }
+}

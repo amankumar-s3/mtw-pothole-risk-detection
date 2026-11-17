@@ -1,0 +1,22 @@
+# Third-party data, videos and weights are NEVER committed.
+data/*
+!data/videos/
+data/videos/*
+!data/videos/PROVENANCE.csv
+!data/**/.gitkeep
+models/**/*.pt
+models/**/*.onnx
+outputs/*
+!outputs/.gitkeep
+eval_results/*
+!eval_results/.gitkeep
+venv/
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+*.mp4
+*.zip
+runs/
+docs/audits/*_preview.png
+*.pt

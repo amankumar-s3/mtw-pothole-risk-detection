@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ptr"
+version = "0.1.0"
+description = "Pothole + motorized two-wheeler (MTW) potential-risk analysis from road video (offline)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy", "pandas", "PyYAML", "opencv-python-headless", "scipy",
+  "imagehash", "Pillow", "motmetrics", "matplotlib", "scikit-learn",
+]
+
+[project.optional-dependencies]
+detect = ["ultralytics", "lap"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
